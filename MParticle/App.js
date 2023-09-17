@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {View, Text, Button} from 'react-native';
 import MParticle from 'react-native-mparticle';
 
-const HomeScreen = () => {
+const App = () => {
   useEffect(() => {
     // Track a custom event
     MParticle.logEvent('Home Screen Viewed', MParticle.EventType.Other, {
@@ -75,4 +75,4 @@ const HomeScreen = () => {
   );
 };
 
-export default HomeScreen;
+export default App;
