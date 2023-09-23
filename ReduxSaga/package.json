@@ -1,5 +1,5 @@
 {
-  "name": "MParticle",
+  "name": "ReduxSaga",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -10,9 +10,11 @@
     "test": "jest"
   },
   "dependencies": {
-    "react": "18.2.0",
+    "axios": "^1.5.0",
     "react-native": "0.72.4",
-    "react-native-mparticle": "^2.7.8"
+    "react-redux": "^8.1.2",
+    "redux": "^4.2.1",
+    "redux-saga": "^1.2.3"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
@@ -20,7 +22,6 @@
     "@babel/runtime": "^7.20.0",
     "@react-native/eslint-config": "^0.72.2",
     "@react-native/metro-config": "^0.72.11",
-    "@testing-library/react-native": "^12.3.0",
     "@tsconfig/react-native": "^3.0.0",
     "@types/react": "^18.0.24",
     "@types/react-test-renderer": "^18.0.0",
