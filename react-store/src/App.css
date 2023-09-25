@@ -17,6 +17,9 @@
 .App {
   text-align: center;
 }
+.App.Lef{
+  text-align: left;
+}
 
 .heading {
   flex-grow: 1;

@@ -30,6 +30,7 @@ function App() {
 
   // Current user's shopping cart
   const [cart, setCart] = useState(storeData.getCart());
+  const [featureFlags, setFeatureFlags] = useState({});
 
   // Updates the user's shopping cart
   function updateCart(cart: CartItemDetails[]) {
@@ -41,6 +42,7 @@ function App() {
   useEffect(() => {
     storeData.getCategories().then(data => setCategories(data));
   }, [storeData]);
+
   useEffect(() => {
     const cf = initialize(
         '9b806dfa-56a4-4982-902b-236b5bc3fc4b',
@@ -66,12 +68,17 @@ function App() {
         cf?.close();
     };
 }, []);
+let className = featureFlags.mybooleanflag ? 'App.Left' : 'App';
+
+
 
   // Create the router
   return (
     <CartContext.Provider value={{ cart, setCart: updateCart }}>
       <BrowserRouter>
+        <div className={className}>
         <Header />
+        </div>
         <Routes>
           <Route path="/" element={<Home categories={categories} />} />
           <Route path="/list/:listId/:itemId" element={<ItemDetails />} />
