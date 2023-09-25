@@ -1,21 +1,9 @@
-/*
- * Copyright 2022 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+//@ts-nocheck
 
 import { useEffect, useMemo, useState } from 'react';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
+import { initialize, Event } from '@harnessio/ff-javascript-client-sdk';
+
 
 import Cart from './Store/Cart';
 import Checkout from './Store/Checkout';
@@ -53,6 +41,31 @@ function App() {
   useEffect(() => {
     storeData.getCategories().then(data => setCategories(data));
   }, [storeData]);
+  useEffect(() => {
+    const cf = initialize(
+        '9b806dfa-56a4-4982-902b-236b5bc3fc4b',
+        { identifier: 'mybooleanflag', attributes: { lastUpdated: Date(), host: window.location.href } },
+        { baseUrl: 'https://config.ff.harness.io/api/1.0', eventUrl: 'https://events.ff.harness.io/api/1.0' }
+    );
+    cf.on(Event.READY, (flags) => {
+        setFeatureFlags(flags);
+        console.log(flags);
+    });
+    cf.on(Event.CHANGED, (flagInfo) => {
+        console.log(flagInfo);
+        if (flagInfo.deleted) {
+            setFeatureFlags((currentFeatureFlags) => {
+                delete currentFeatureFlags[flagInfo.flag];
+                return { ...currentFeatureFlags };
+            });
+        } else {
+            setFeatureFlags((currentFeatureFlags) => ({ ...currentFeatureFlags, [flagInfo.flag]: flagInfo.value }));
+        }
+    });
+    return () => {
+        cf?.close();
+    };
+}, []);
 
   // Create the router
   return (
