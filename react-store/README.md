@@ -71,3 +71,7 @@ For more information about React, refer to the
 For any questions on this sample app, please
 [submit an issue](https://github.com/google-pay/angular-store/issues/new) to
 this repository.
+
+
+https://github.com/nallakshyams/POCRepo/assets/24761241/8889e9cb-16b3-4d41-93aa-8798006ff7c4
+
